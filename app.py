@@ -34,6 +34,12 @@ def callback():
 
     return 'OK'
 
+import feedparser
+weather_feed=feedparser.parse('https://www.cwb.gov.tw/rss/forecast/36_01.xml')
+
+print(weather_feed.entries[1].title)
+print(weather_feed.entries[1].description)
+print(weather_feed.entries[1].link)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -41,12 +47,38 @@ def handle_message(event):
     if '你好' in msg or 'Hi' == msg or '哈嘍' == msg:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='你好，很高興認識你'))
+            TextSendMessage(text='你好，很高興認識你( •̀ ω •́ )✧'))
         return
+    if '掰掰' in msg or '再見' == msg or 'Bye' in msg:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='掰掰🖐'))
+    if '無聊' in msg:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='那就......去睡覺吧？'))
+    if '自我介紹' in msg:
+         line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='你好，我是耍廢機器人(因為我不知道名稱要打什麼，所以這名稱就誕生了！)'))
+    if '早安' in msg or '午安' in msg:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='嗨嗨'))
+    if '晚安' in msg:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='晚安，祝你有個好夢=)'))
+    if '天氣資訊' in msg:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=')'))
+
+
     else:
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='輸入無效訊息內容'))
+        TextSendMessage(text='輸入無效訊息內容或者該類訊息回覆尚未解鎖😯'))
 
 
 import os
