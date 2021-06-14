@@ -39,14 +39,13 @@ import feedparser
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    weather_feed=feedparser.parse('https://www.cwb.gov.tw/rss/forecast/36_01.xml')
-
-    if '你好' in msg or 'Hi' == msg or '哈嘍' == msg:
+   
+    if '你好' in msg or 'Hi' in msg or '哈嘍' in msg:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='你好，很高興認識你( •̀ ω •́ )✧'))
         return
-    if '掰掰' in msg or '再見' == msg or 'Bye' in msg:
+    if '掰掰' in msg or '再見' in msg or 'Bye' in msg:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='掰掰🖐'))
@@ -67,6 +66,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text='晚安，祝你有個好夢=)'))
     if '天氣資訊' in msg:
+        weather_feed=feedparser.parse('https://www.cwb.gov.tw/rss/forecast/36_01.xml')
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=weather_feed.entries[1].description))
