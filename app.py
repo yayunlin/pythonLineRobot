@@ -44,6 +44,8 @@ print(weather_feed.entries[1].link)
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    weather_feed=feedparser.parse('https://www.cwb.gov.tw/rss/forecast/36_01.xml')
+
     if '你好' in msg or 'Hi' == msg or '哈嘍' == msg:
         line_bot_api.reply_message(
             event.reply_token,
@@ -72,7 +74,7 @@ def handle_message(event):
     if '天氣資訊' in msg:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=')'))
+            TextSendMessage(text=weather_feed.entries[1].description))
 
 
     else:
